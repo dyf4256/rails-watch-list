@@ -1,0 +1,52 @@
+<div class="mdnavbar">
+  <div class="d-flex justify-content-between">
+    <%= image_tag "popcorn-logo.png", width: 30, class:"m-2" %>
+    <div class="action d-flex  ">
+      <%= link_to "My List", movies_path, class:"btn btn-outline-success"%>
+      <%= link_to "New List", movies_list_new_path, class:"btn btn-outline-success"%>
+    </div>
+  </div>
+</div>
+<div class="banner">
+  <div class="container text-center">
+    <h1>Save any kind of movies</h1>
+  </div>
+</div>
+<%#  %>
+
+<div class="d-flex justify-content-end">
+  <%= link_to "Add a movie", bookmark_new_path, class:"btn btn-outline-success", "data-bs-toggle": "modal", "data-bs-target": "#staticBackdrop"%>
+  <%= link_to "New List", movies_list_new_path, class:"btn btn-outline-success"%>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Add a movie to your <%= @list.name %> list</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%= simple_form_for @bookmark do |f| %>
+          <%= f.input :movie_id, collection: Movie.all%>
+          <%= f.input :comment %>
+          <%= f.submit class: "btn btn-success"%>
+          <%= button_tag 'Close', type: 'button', data: { bs_dismiss: "modal" }, class: "btn btn-primary"%>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Movies -->
+<div class="cards">
+  <% @movies.each do |movie| %>
+  <div class="card">
+    <p>Name: <%= movie.title %></p>
+    <p>Url: <%= movie.poster_url %></p>
+    <p>Rating: <%= movie.rating %></p>
+    <p>Overview: <%= movie.overview %></p>
+  </div>
+  <% end %>
+</div>
