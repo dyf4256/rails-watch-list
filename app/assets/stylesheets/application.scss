@@ -5,7 +5,7 @@
 
 // External libraries
 @import "bootstrap";
-@import "font-awesome";
+// @import "font-awesome";
 
 // Your CSS partials
 @import "components/index";
@@ -14,7 +14,7 @@
 .banner {
   background-size: cover;
   background-position: center;
-  background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url('https://images.pexels.com/photos/109669/pexels-photo-109669.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+  background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(cenima.jpeg);
   padding: 150px 0;
   h1 {
     margin: 0;
@@ -33,12 +33,14 @@
 }
 
 a {
+  display: flex;
   text-decoration: none;
   color: gray;
+  align-items: center;
 }
 .cards {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   grid-gap: 16px;
 }
 
@@ -48,4 +50,11 @@ a {
   height: 100px;
   align-items: center;
   justify-content: center;
+}
+
+.card {
+  justify-content: space-between;
+  p {
+    margin: 0;
+  }
 }

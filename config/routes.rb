@@ -14,5 +14,8 @@ Rails.application.routes.draw do
   post 'lists', to: 'lists#create'
   get 'lists', to: 'movies#home'
   get 'bookmark/new', to: 'bookmarks#new'
-  post 'bookmarks', to: 'bookmarks#create'
+  post 'lists/:id/bookmarks', to: 'bookmarks#create', as: :list_bookmarks
+  delete 'lists/:list_id/movies/:id', to: 'movies#destroy', as: :remove_movie
+  delete 'lists/:id', to: 'lists#destroy'
+  post 'lists/:id/reviews', to: 'reviews#create', as: :list_reviews
 end

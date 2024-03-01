@@ -9,14 +9,14 @@
 </div>
 <div class="banner">
   <div class="container text-center">
-    <h1>Save any kind of movies</h1>
+    <h1><%= @list.name %></h1>
   </div>
 </div>
 <%#  %>
 
-<div class="d-flex justify-content-end">
+<div class="d-flex justify-content-end mt-3">
   <%= link_to "Add a movie", bookmark_new_path, class:"btn btn-outline-success", "data-bs-toggle": "modal", "data-bs-target": "#staticBackdrop"%>
-  <%= link_to "New List", movies_list_new_path, class:"btn btn-outline-success"%>
+  <%= link_to "Delete this list", list_path(@list), data: {turbo_method: :delete, turbo_confirm: "Are you sure?" }, class:"btn btn-outline-secondary"%>
 </div>
 
 <!-- Modal -->
@@ -28,7 +28,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <%= simple_form_for @bookmark do |f| %>
+        <%= simple_form_for [@list, @bookmark] do |f| %>
           <%= f.input :movie_id, collection: Movie.all%>
           <%= f.input :comment %>
           <%= f.submit class: "btn btn-success"%>
@@ -40,13 +40,47 @@
 </div>
 
 <!-- Movies -->
-<div class="cards">
+<div class="cards pb-3 mt-3 border-bottom">
   <% @movies.each do |movie| %>
-  <div class="card">
-    <p>Name: <%= movie.title %></p>
-    <p>Url: <%= movie.poster_url %></p>
-    <p>Rating: <%= movie.rating %></p>
-    <p>Overview: <%= movie.overview %></p>
+  <div class="card d-flex">
+    <div>
+      <p>Name: <%= movie.title %></p>
+      <p>Url: <%= movie.poster_url %></p>
+      <p>Rating: <%= movie.rating %></p>
+      <p>Overview: <%= movie.overview %></p>
+    </div>
+    <div class="d-flex justify-content-between">
+      <p>✦ <%= Bookmark.where(movie_id: movie.id, list_id: @list.id)[0].comment %></p>
+      <%= link_to "delete", remove_movie_path(@list, movie), data: {turbo_method: :delete, turbo_confirm: "Are you sure?" }%>
+    </div>
   </div>
   <% end %>
+</div>
+
+<!-- Reviews -->
+<div class="d-flex justify-content-between mb-5 m-3">
+  <div id="reviews">
+    <h3>Reviews</h3>
+    <% if @reviews.length > 0 %>
+      <% @reviews.each do |review| %>
+        <p><%= '⭐️' * review.rating %>  <%= review.content.capitalize %></p>
+      <% end %>
+    <% else %>
+      <p>Be the first one to review this list!</p>
+    <% end %>
+  </div>
+  <div id="add-review">
+    <%= simple_form_for [@list, @review] do |f| %>
+      <%= f.input :content %>
+      <select name="review[rating]" id="">
+        <option value=1>1</option>
+        <option value=2>2</option>
+        <option value=3>3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+      <span>⭐️</span>
+      <%= f.submit class: "btn btn-success"%>
+    <% end %>
+  </div>
 </div>
