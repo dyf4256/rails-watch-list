@@ -12,6 +12,7 @@
 <div class="container">
   <%= simple_form_for @list do |f|%>
     <%= f.input :name %>
+    <%= f.input :photo, as: :file %>
     <%= f.submit class:"btn btn-outline-success" %>
     <%= link_to "Back", movies_path, class:"btn btn-sencondary"%>
     <%# <%= button_tag 'Close', type: 'button', action:"moives_path" class:"btn btn-outline-sencondary"%>

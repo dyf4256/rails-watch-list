@@ -44,10 +44,10 @@
   <% @movies.each do |movie| %>
   <div class="card d-flex">
     <div>
-      <p>Name: <%= movie.title %></p>
-      <p>Url: <%= movie.poster_url %></p>
-      <p>Rating: <%= movie.rating %></p>
-      <p>Overview: <%= movie.overview %></p>
+      <img class="list-imags" src=<%= movie.poster_url %> width=400px>
+      <p class="bolder">Name: <%= movie.title %></p>
+      <p class="fz-6">Rating: <%= movie.rating %></p>
+      <p class="fst-italic">Overview: <%= movie.overview %></p>
     </div>
     <div class="d-flex justify-content-between">
       <p>✦ <%= Bookmark.where(movie_id: movie.id, list_id: @list.id)[0].comment %></p>
